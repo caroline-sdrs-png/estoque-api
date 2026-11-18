@@ -1,0 +1,6 @@
+$kind: http-request
+name: Welcome
+method: GET
+url: '{{base_url}}/'
+order: 1000
+description: Returns a welcome message.
