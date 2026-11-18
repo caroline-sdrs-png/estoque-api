@@ -7,3 +7,14 @@ description: Updates an existing product by ID.
 pathVariables:
   - key: id
     value: '1'
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nome": "Camiseta Básica Premium",
+      "categoria": "Vestuário",
+      "preco": 69.90,
+      "quantidade": 80
+    }

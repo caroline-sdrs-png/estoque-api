@@ -4,3 +4,14 @@ method: POST
 url: '{{base_url}}/produtos'
 order: 2000
 description: Creates a new product.
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nome": "Camiseta Básica",
+      "categoria": "Vestuário",
+      "preco": 49.90,
+      "quantidade": 100
+    }
