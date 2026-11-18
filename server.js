@@ -1,4 +1,10 @@
 require("dotenv").config();
+
+const loggerMiddleware = require(`./src/middleware/logger`)
+const valorProdutoMiddleware = require(`./src/middleware/valorProduto`)
+const dobroValorMiddleware = require(`./src/middleware/dobroValor`)
+
+
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -8,6 +14,9 @@ app.use(express.json());
 //Para formatar os dados do formulário ()x-www-from-urlencoded()
 app.use(express.urlencoded({extended: true}));
 
+app.use(loggerMiddleware);
+app.use(valorProdutoMiddleware);
+app.use(dobroValorMiddleware);
 
 app.get('/', function(req,res){
     res.send('Bem Vindo')
@@ -30,8 +39,7 @@ app.delete('/produtos/:id', (req,res) =>{
 });
 
 app.listen(port, function(){
-    console.log('Servidor rodando na porta' + port)
+    console.log(`Servidor rodando na porta`+ port)
 
 });
-
 
