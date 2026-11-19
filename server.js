@@ -1,11 +1,10 @@
-require("dotenv").config();
-
-const loggerMiddleware = require(`./src/middleware/logger`)
-const valorProdutoMiddleware = require(`./src/middleware/valorProduto`)
-const dobroValorMiddleware = require(`./src/middleware/dobroValor`)
+import dotenv from 'dotenv'
+dotenv.config();
 
 
-const express = require('express');
+import loggerMiddleware from './src/middleware/logger.js'
+import express from 'express';
+
 const app = express();
 const port = 3000;
 
@@ -15,31 +14,48 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(loggerMiddleware);
-app.use(valorProdutoMiddleware);
-app.use(dobroValorMiddleware);
 
 app.get('/', function(req,res){
-    res.send('Bem Vindo')
+    res.status(200).json({
+        "status": "OK",
+        "codigo": "200",
+        "mensagem":'Bem Vindo!'
+    })
 });
 
 app.post('/produtos', (req, res) => {
     let produto = req.body
-    res.send(`O produto foi criado! Nome: ${produto.nome}, Valor: ${produto.preco}`)
+    //res.send(`O produto foi criado! Nome: ${produto.nome}, Valor: ${produto.preco}`)
+    res.status(201).json({
+        "status": "Criado",
+        "codigo": 201,
+        "mensagem": `O produto foi criado. Nome: ${produto.nome}, Valor: ${produto.preco}`
+    })
 });
 
 
 app.put('/produtos/:id', (req,res) =>{
     let id = req.params.id
-    res.send(`O produto ${id} foi alterado.`)
+    let produto = req.body
+    //res.send(`O produto ${id} foi alterado.`)
+     res.status(201).json({
+        "status": "Alterado",
+        "codigo": 200,
+        "mensagem": `O produto ${id} foi alterado! Nome: ${produto.nome}, Valor: ${produto.preco}`
+    })
 });
 
 app.delete('/produtos/:id', (req,res) =>{
     let id = req.params.id
-     res.send(`O produto ${id} foi excluído.`)
+     //res.send(`O produto ${id} foi excluído.`)
+    res.status(201).json({
+        "status": "Deletado",
+        "codigo": 200,
+        "mensagem": `O produto ${id}foi removido.`
+    })
 });
 
 app.listen(port, function(){
-    console.log(`Servidor rodando na porta`+ port)
-
+    console.log(`Servidor rodando na porta` + port)
 });
 
